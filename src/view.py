@@ -7,11 +7,9 @@ from math import *
 import numpy as np
 isRun = True
 angle = 0
-
+ 
+clock = pygame.time.Clock()
 while isRun:
-    i = 0
-
-    clock = pygame.time.Clock()
     clock.tick(60)
     WIDTH,HEIGHT = (700,700)
     scale = 100
@@ -19,11 +17,12 @@ while isRun:
     os.environ['SDL_VIDEO_CENTERED'] = '1'
     pygame.init()
     infoObject = pygame.display.Info()
-    window = pygame.display.set_mode((WIDTH,HEIGHT), pygame.RESIZABLE,pygame.OPENGL)
+    window = pygame.display.set_mode((WIDTH,HEIGHT), pygame.RESIZABLE)
     pygame.display.set_caption("Envision")
     window.fill(enviroment_colour)
     
-    
+    def connect_points(i,j, points):
+        pygame.draw.line(window,object_border,(points[i][0], points[i][1]),(points[j][0], points[j][1]), 3)
     
     rotation_z = np.matrix([
          [cos(angle), -sin(angle), 0],
@@ -43,13 +42,11 @@ while isRun:
     angle += 0.01
     
     projected_points = [
-            [n,n] for n in range(len(points))
-        ]    
+       [n, n] for n in range(len(points))
+    ]    
+    
+    i = 0
     for point in points:
-   
-        
-        def connect_points(i,j, points):
-            pygame.draw.line(window,object_border,(points[i][0], points[i][1]),(points[j][0], points[j][1]), 3)
         rotated2d = np.dot(rotation_z, point.reshape((3,1)))
         rotated2d = np.dot(rotation_y, rotated2d)
 
@@ -61,8 +58,10 @@ while isRun:
         projected_points[i] = [x,y]
         pygame.draw.circle(window, vertex_colour, (x,y), 5)
         i+=1
-   
-        connect_points(0,1,projected_points)
+    for p in range(4):
+          connect_points(p, (p+1) % 4, projected_points)
+          connect_points(p+4, ((p+1) % 4) + 4, projected_points)
+          connect_points(p, (p+4), projected_points)        
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             isRun = False
