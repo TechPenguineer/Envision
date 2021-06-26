@@ -7,9 +7,10 @@ from math import *
 import numpy as np
 isRun = True
 angle = 0
-i = 0
+
 while isRun:
-    
+    i = 0
+
     clock = pygame.time.Clock()
     clock.tick(60)
     WIDTH,HEIGHT = (700,700)
@@ -41,14 +42,14 @@ while isRun:
     ])
     angle += 0.01
     
-    
-
-    for point in points:
-        projected_points = [
+    projected_points = [
             [n,n] for n in range(len(points))
-        ]   
+        ]    
+    for point in points:
+   
+        
         def connect_points(i,j, points):
-            pygame.draw.line(window,object_border,(points[i][0], points[i][1]),(points[j][0], points[j][1]))
+            pygame.draw.line(window,object_border,(points[i][0], points[i][1]),(points[j][0], points[j][1]), 3)
         rotated2d = np.dot(rotation_z, point.reshape((3,1)))
         rotated2d = np.dot(rotation_y, rotated2d)
 
@@ -61,7 +62,7 @@ while isRun:
         pygame.draw.circle(window, vertex_colour, (x,y), 5)
         i+=1
    
-    connect_points(0,1,projected_points)
+        connect_points(0,1,projected_points)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             isRun = False
