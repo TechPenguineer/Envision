@@ -4,7 +4,6 @@ from pygame.version import ver
 from arrays.cube_array import cube_projection_matrix,points
 from functions.colour_manager import enviroment_colour,grid_colour,object_border,vertex_colour
 from math import *
-from functions.connect_points import projected_points
 import numpy as np
 isRun = True
 angle = 0
@@ -43,6 +42,7 @@ while isRun:
     angle += 0.01
     
     
+
     for point in points:
         projected_points = [
             [n,n] for n in range(len(points))
@@ -61,6 +61,7 @@ while isRun:
         pygame.draw.circle(window, vertex_colour, (x,y), 5)
         i+=1
    
+    connect_points(0,1,projected_points)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             isRun = False
