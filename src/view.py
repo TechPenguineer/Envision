@@ -52,8 +52,9 @@ while isRun:
         x = int(projected2d[0][0] * scale) + circle_pos[0]
         y= int(projected2d[1][0] * scale) + circle_pos[1]
         
-        projected_points[i]
+        projected_points[i] = [x,y]
         pygame.draw.circle(window, vertex_colour, (x,y), 5)
+        i+=1
    
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
