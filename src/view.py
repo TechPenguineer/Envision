@@ -48,7 +48,7 @@ while isRun:
             [n,n] for n in range(len(points))
         ]   
         def connect_points(i,j, points):
-            pygame.draw.line(window,object_border,(points[i][0]),())
+            pygame.draw.line(window,object_border,(points[i][0], points[i][1]),(points[j][0], points[j][1]))
         rotated2d = np.dot(rotation_z, point.reshape((3,1)))
         rotated2d = np.dot(rotation_y, rotated2d)
 
