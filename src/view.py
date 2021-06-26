@@ -14,12 +14,19 @@ pygame.init()
 os.environ['SDL_VIDEO_CENTERED'] = '1'
 info = pygame.display.Info()
 WIDTH,HEIGHT = (info.current_w,info.current_h-55)
-window = pygame.display.set_mode((WIDTH,HEIGHT), pygame.RESIZABLE)
+window = pygame.display.set_mode((WIDTH,HEIGHT), pygame.RESIZABLE, pygame.DOUBLEBUF,pygame.HWSURFACE,pygame.HWACCEL)
+
 while isRun:
+    pygame.init()
+    circle_pos = [WIDTH/2,HEIGHT/2]
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            isRun = False
+        if event.type == pygame.K_ESCAPE:
+            isRun = False
     clock.tick(76)
     scale = 100
     pygame.init()
-    circle_pos = [WIDTH/2,HEIGHT/2]
     infoObject = pygame.display.Info()
     pygame.display.set_caption("Envision")
     window.fill(enviroment_colour)
@@ -63,11 +70,7 @@ while isRun:
           connect_points(p, (p+1) % 4, projected_points)
           connect_points(p+4, ((p+1) % 4) + 4, projected_points)
           connect_points(p, (p+4), projected_points)        
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            isRun = False
-        if event.type == pygame.K_ESCAPE:
-            isRun = False
+
     pygame.display.flip()
 
 pygame.display.quit()
