@@ -10,7 +10,7 @@ angle = 0
  
 clock = pygame.time.Clock()
 while isRun:
-    clock.tick(60)
+    clock.tick(76)
     WIDTH,HEIGHT = (700,700)
     scale = 100
     circle_pos = [WIDTH/2,HEIGHT/2]
@@ -20,7 +20,6 @@ while isRun:
     window = pygame.display.set_mode((WIDTH,HEIGHT), pygame.RESIZABLE)
     pygame.display.set_caption("Envision")
     window.fill(enviroment_colour)
-    
     def connect_points(i,j, points):
         pygame.draw.line(window,object_border,(points[i][0], points[i][1]),(points[j][0], points[j][1]), 3)
     
@@ -40,21 +39,16 @@ while isRun:
           [0, sin(angle), 0, cos(angle)],
     ])
     angle += 0.01
-    
     projected_points = [
        [n, n] for n in range(len(points))
     ]    
-    
     i = 0
     for point in points:
         rotated2d = np.dot(rotation_z, point.reshape((3,1)))
         rotated2d = np.dot(rotation_y, rotated2d)
-
-        projected2d = np.dot(cube_projection_matrix, rotated2d)
-        
+        projected2d = np.dot(cube_projection_matrix, rotated2d) 
         x = int(projected2d[0][0] * scale) + circle_pos[0]
-        y= int(projected2d[1][0] * scale) + circle_pos[1]
-        
+        y= int(projected2d[1][0] * scale) + circle_pos[1]      
         projected_points[i] = [x,y]
         pygame.draw.circle(window, vertex_colour, (x,y), 5)
         i+=1
