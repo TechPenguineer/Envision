@@ -8,6 +8,7 @@ from functions.connect_points import *
 import numpy as np
 isRun = True
 angle = 0
+i = 0
 while isRun:
 
     clock = pygame.time.Clock()
