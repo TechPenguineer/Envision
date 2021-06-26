@@ -1,25 +1,32 @@
-import pygame,os,math
+import pygame,os,math,sys
 from pygame.constants import FULLSCREEN, RESIZABLE
 from pygame.version import ver
 from arrays.cube_array import cube_projection_matrix,points
-from functions.colour_manager import enviroment_colour,grid_colour,object_border,vertex_colour
+from functions.colour_manager import enviroment_colour,grid_colour,object_border,vertex_colour,fps_counter_colour
 from math import *
 import numpy as np
 isRun = True
 angle = 0
  
 clock = pygame.time.Clock()
+
+pygame.init()
+os.environ['SDL_VIDEO_CENTERED'] = '1'
+info = pygame.display.Info()
+WIDTH,HEIGHT = (info.current_w,info.current_h-55)
+window = pygame.display.set_mode((WIDTH,HEIGHT), pygame.RESIZABLE)
 while isRun:
     clock.tick(76)
-    WIDTH,HEIGHT = (700,700)
     scale = 100
-    circle_pos = [WIDTH/2,HEIGHT/2]
-    os.environ['SDL_VIDEO_CENTERED'] = '1'
     pygame.init()
+    circle_pos = [WIDTH/2,HEIGHT/2]
     infoObject = pygame.display.Info()
-    window = pygame.display.set_mode((WIDTH,HEIGHT), pygame.RESIZABLE)
     pygame.display.set_caption("Envision")
     window.fill(enviroment_colour)
+    
+    # COUNT FPS DISPLAY
+    baseFont = pygame.font.SysFont("Arial", 48)
+    text = baseFont.render("FPS", True, fps_counter_colour)
     def connect_points(i,j, points):
         pygame.draw.line(window,object_border,(points[i][0], points[i][1]),(points[j][0], points[j][1]), 3)
     
