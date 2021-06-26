@@ -1,14 +1,13 @@
 import numpy as np
 points = []
-points.append(np.matrix([1, 1, 1]))
-points.append(np.matrix([-1, 1, 1]))
-points.append(np.matrix([1, -1, 1]))
-points.append(np.matrix([1, 1, -1]))
 points.append(np.matrix([-1, -1, 1]))
-points.append(np.matrix([1, -1, -1]))
-points.append(np.matrix([-1, 1, -1]))
+points.append(np.matrix([1, -1, 1]))
+points.append(np.matrix([1,  1, 1]))
+points.append(np.matrix([-1, 1, 1]))
 points.append(np.matrix([-1, -1, -1]))
-
+points.append(np.matrix([1, -1, -1]))
+points.append(np.matrix([1, 1, -1]))
+points.append(np.matrix([-1, 1, -1]))
 
 
 
