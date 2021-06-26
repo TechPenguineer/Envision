@@ -72,3 +72,16 @@ who participated in this project.
 - Hat tip to anyone whose code was used
 - We were heavily inspired by softwares such as [Blender](https://www.blender.org) and [Maya](https://www.autodesk.com/products/maya/overview?term=1-YEAR)
 - We also used a lot of [Youtube](youtube.com) and [Stack Overflow](https://stackoverflow.com/) for coding help and instruction. Our earliest developers also used [Oriley](https://learning.oreilly.com/home/) for coding classes 
+
+# ⏰ Earliest Views
+
+  <hr>
+  <br>
+
+   ## **First object render**
+   <img src="https://i.imgur.com/6HHvVHo.png" style="width:300px; border-radius: 90px;"></a>
+  
+   ## **First object point array**
+   <img src="https://i.imgur.com/VAh4dBU.png" style="width:300px;"></a>
+
+  <br>
