@@ -4,13 +4,13 @@ from pygame.version import ver
 from arrays.cube_array import cube_projection_matrix,points
 from functions.colour_manager import enviroment_colour,grid_colour,object_border,vertex_colour
 from math import *
-from functions.connect_points import *
+from functions.connect_points import projected_points
 import numpy as np
 isRun = True
 angle = 0
 i = 0
 while isRun:
-
+    
     clock = pygame.time.Clock()
     clock.tick(60)
     WIDTH,HEIGHT = (700,700)
@@ -44,6 +44,11 @@ while isRun:
     
     
     for point in points:
+        projected_points = [
+            [n,n] for n in range(len(points))
+        ]   
+        def connect_points(i,j, points):
+            pygame.draw.line(window,object_border,(points[i][0]),())
         rotated2d = np.dot(rotation_z, point.reshape((3,1)))
         rotated2d = np.dot(rotation_y, rotated2d)
 
