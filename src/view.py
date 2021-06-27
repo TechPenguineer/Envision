@@ -6,6 +6,7 @@ from pygame.version import ver
 from arrays.cube_array import cube_projection_matrix,points
 from functions.colour_manager import enviroment_colour,grid_colour,object_border,vertex_colour,fps_counter_colour,options_panel_colour
 from math import *
+from configs.viewport_conf import *
 import numpy as np
 isRun = True
 angle = 0
