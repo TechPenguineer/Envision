@@ -1,6 +1,6 @@
 from numpy.core.numeric import indices
 import pygame,os,math,sys
-from pygame.constants import FULLSCREEN, RESIZABLE
+from pygame.constants import FULLSCREEN, KEYDOWN, K_v, RESIZABLE
 from pygame.threads import FINISH
 from pygame.version import ver
 from arrays.cube_array import cube_projection_matrix,points
@@ -34,7 +34,7 @@ while isRun:
     baseFont = pygame.font.SysFont("Arial", 48)
     text = baseFont.render("FPS", True, fps_counter_colour)
     def connect_points(i,j, points):
-        pygame.draw.line(window,object_border,(points[i][0], points[i][1]),(points[j][0], points[j][1]), 3)
+          pygame.draw.line(window,object_border,(points[i][0], points[i][1]),(points[j][0], points[j][1]), 3)
     
     rotation_z = np.matrix([
          [cos(angle), -sin(angle), 0],
@@ -61,9 +61,11 @@ while isRun:
             isRun = False
         if event.type == pygame.K_ESCAPE:
             isRun = False     
-       
+    
     
     keyState = pygame.key.get_pressed()
+    if(KEYDOWN == K_v):
+        view_vertex=False
     
     i = 0
      
@@ -75,9 +77,12 @@ while isRun:
         x = int(projected2d[0][0] * scale) + circle_pos[0]
         y= int(projected2d[1][0] * scale) + circle_pos[1] 
         projected_points[i] = [x,y]
-       # pygame.draw.circle(window, vertex_colour, (x,y), 5)
+        if view_vertex == True:
+            pygame.draw.circle(window, vertex_colour, (x,y), 5)
         i+=1
-    for p in range(len(cube_projection_matrix)+1):
+        
+    if view_edges == True:
+      for p in range(len(cube_projection_matrix)+1):
           connect_points(p, (p+1) % 4, projected_points)
           connect_points(p+4, ((p+1) % 4) + 4, projected_points)
           connect_points(p, (p+4), projected_points)   
@@ -88,6 +93,7 @@ while isRun:
     options_panel.fill(options_panel_colour)
     window.blit(options_panel, [WIDTH-300,0])
     pygame.display.flip()
+    
 
 pygame.display.quit()
 pygame.display.init()
