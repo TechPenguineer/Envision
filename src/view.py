@@ -1,5 +1,7 @@
+from numpy.core.numeric import indices
 import pygame,os,math,sys
 from pygame.constants import FULLSCREEN, RESIZABLE
+from pygame.threads import FINISH
 from pygame.version import ver
 from arrays.cube_array import cube_projection_matrix,points
 from functions.colour_manager import enviroment_colour,grid_colour,object_border,vertex_colour,fps_counter_colour
@@ -19,11 +21,7 @@ window = pygame.display.set_mode((WIDTH,HEIGHT), pygame.RESIZABLE, pygame.DOUBLE
 while isRun:
     pygame.init()
     circle_pos = [WIDTH/2,HEIGHT/2]
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            isRun = False
-        if event.type == pygame.K_ESCAPE:
-            isRun = False
+    
     clock.tick(76)
     scale = 100
     pygame.init()
@@ -56,20 +54,36 @@ while isRun:
     projected_points = [
        [n, n] for n in range(len(points))
     ]    
+    
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            isRun = False
+        if event.type == pygame.K_ESCAPE:
+            isRun = False     
+       
+    
+    keyState = pygame.key.get_pressed()
+    
+    
+        
+    
     i = 0
     for point in points:
         rotated2d = np.dot(rotation_z, point.reshape((3,1)))
-        rotated2d = np.dot(rotation_y, rotated2d)
+        if keyState[pygame.K_w]:
+            rotated2d = np.dot(rotation_y, rotated2d)
+        pygame.event.pump() 
         projected2d = np.dot(cube_projection_matrix, rotated2d) 
         x = int(projected2d[0][0] * scale) + circle_pos[0]
         y= int(projected2d[1][0] * scale) + circle_pos[1]      
         projected_points[i] = [x,y]
-        pygame.draw.circle(window, vertex_colour, (x,y), 5)
+       # pygame.draw.circle(window, vertex_colour, (x,y), 5)
         i+=1
-    for p in range(4):
+    for p in range(len(cube_projection_matrix)+1):
           connect_points(p, (p+1) % 4, projected_points)
           connect_points(p+4, ((p+1) % 4) + 4, projected_points)
-          connect_points(p, (p+4), projected_points)        
+          connect_points(p, (p+4), projected_points)   
+            
 
     pygame.display.flip()
 
