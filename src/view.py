@@ -86,7 +86,11 @@ while isRun:
           connect_points(p, (p+1) % 4, projected_points)
           connect_points(p+4, ((p+1) % 4) + 4, projected_points)
           connect_points(p, (p+4), projected_points)   
-    
+
+    # CREATE VIEWPORT OPTION DISPLAYS
+    class viewVerts:
+        def __init__(self,  image, position, callback):
+            self.image = sys.path.append(os.path.abspath('../icons/view_verticies_ico.png'))
     # CREATE SURFACES
     infoWindow = pygame.display.Info()
     options_panel = pygame.Surface([300,HEIGHT_PANEL])
