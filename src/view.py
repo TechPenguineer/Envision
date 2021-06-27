@@ -4,21 +4,21 @@ from pygame.constants import FULLSCREEN, RESIZABLE
 from pygame.threads import FINISH
 from pygame.version import ver
 from arrays.cube_array import cube_projection_matrix,points
-from functions.colour_manager import enviroment_colour,grid_colour,object_border,vertex_colour,fps_counter_colour
+from functions.colour_manager import enviroment_colour,grid_colour,object_border,vertex_colour,fps_counter_colour,options_panel_colour
 from math import *
 import numpy as np
 isRun = True
 angle = 0
- 
+pygame.init() 
 clock = pygame.time.Clock()
-
-pygame.init()
 os.environ['SDL_VIDEO_CENTERED'] = '1'
 info = pygame.display.Info()
-WIDTH,HEIGHT = (info.current_w,info.current_h-55)
-window = pygame.display.set_mode((WIDTH,HEIGHT), pygame.RESIZABLE, pygame.DOUBLEBUF,pygame.HWSURFACE,pygame.HWACCEL)
 
+WIDTH,HEIGHT = (info.current_w,info.current_h-55)
 while isRun:
+    
+    HEIGHT_PANEL = info.current_h
+    window = pygame.display.set_mode((WIDTH,HEIGHT), pygame.RESIZABLE, pygame.DOUBLEBUF,pygame.HWSURFACE,pygame.HWACCEL)
     pygame.init()
     circle_pos = [WIDTH/2,HEIGHT/2]
     
@@ -64,18 +64,15 @@ while isRun:
     
     keyState = pygame.key.get_pressed()
     
-    
-        
-    
     i = 0
+     
     for point in points:
         rotated2d = np.dot(rotation_z, point.reshape((3,1)))
-        if keyState[pygame.K_w]:
-            rotated2d = np.dot(rotation_y, rotated2d)
+        rotated2d = np.dot(rotation_y, rotated2d)
         pygame.event.pump() 
         projected2d = np.dot(cube_projection_matrix, rotated2d) 
         x = int(projected2d[0][0] * scale) + circle_pos[0]
-        y= int(projected2d[1][0] * scale) + circle_pos[1]      
+        y= int(projected2d[1][0] * scale) + circle_pos[1] 
         projected_points[i] = [x,y]
        # pygame.draw.circle(window, vertex_colour, (x,y), 5)
         i+=1
@@ -83,8 +80,12 @@ while isRun:
           connect_points(p, (p+1) % 4, projected_points)
           connect_points(p+4, ((p+1) % 4) + 4, projected_points)
           connect_points(p, (p+4), projected_points)   
-            
-
+    
+    # CREATE SURFACES
+    infoWindow = pygame.display.Info()
+    options_panel = pygame.Surface([300,HEIGHT_PANEL])
+    options_panel.fill(options_panel_colour)
+    window.blit(options_panel, [WIDTH-300,0])
     pygame.display.flip()
 
 pygame.display.quit()
